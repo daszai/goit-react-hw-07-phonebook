@@ -1,14 +1,16 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { deletet } from 'components/prop';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchTasksDelete } from 'components/prop';
 
 const Contacts = () => {
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(state => state.contacts.contact);
   const filter = useSelector(state => state.name);
   const dispatch = useDispatch();
+
   const deleteContacts = e => {
-    dispatch(deletet(e.currentTarget.name));
+    dispatch(
+      fetchTasksDelete({ name: e.currentTarget.name, contacts: contacts })
+    );
   };
 
   let temp = filter.toLowerCase();
@@ -41,7 +43,7 @@ const Contacts = () => {
       <div>Contacts</div>
       {contact.map(obj => {
         return (
-          <div key={obj.id}>
+          <div key={obj.id2}>
             {obj.name} : {obj.number}{' '}
             <button name={obj.name} onClick={deleteContacts}>
               Delete
